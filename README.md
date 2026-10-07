@@ -6,7 +6,7 @@ The app allows users to add, edit, complete and remove tasks, organize them by c
 
 ## Live Demo
 
-🔗 **[View the live project](https://todo-list-phi-two-66.vercel.app/)**
+🔗 **[View the live project](https://douglas-todo-list.vercel.app/)**
 
 ## Preview
 
