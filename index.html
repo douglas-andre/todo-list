@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Todo List</title>
+    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main class="todo-app">
+      <header class="todo-header">
+        <h1 class="todo-title">My Tasks</h1>
+        <p class="todo-subtitle">Keep your day organized.</p>
+      </header>
+
+      <section class="stats" aria-label="Task statistics">
+        <div class="stat-card">
+          <span id="total-tasks" class="stat-value">0</span>
+          <span class="stat-label">Total</span>
+        </div>
+
+        <div class="stat-card">
+          <span id="completed-tasks" class="stat-value">0</span>
+          <span class="stat-label">Completed</span>
+        </div>
+
+        <div class="stat-card">
+          <span id="pending-tasks" class="stat-value">0</span>
+          <span class="stat-label">Pending</span>
+        </div>
+      </section>
+
+      <div class="todo-layout">
+        <aside class="categories">
+          <h2 class="categories-title" id="categories-title">Categories</h2>
+
+          <div
+            class="category-list"
+            role="group"
+            aria-labelledby="categories-title"
+          >
+            <button
+              type="button"
+              class="category-button active"
+              data-category="all"
+              aria-pressed="true"
+            >
+              All
+            </button>
+
+            <button
+              type="button"
+              class="category-button"
+              data-category="work"
+              aria-pressed="false"
+            >
+              Work
+            </button>
+
+            <button
+              type="button"
+              class="category-button"
+              data-category="study"
+              aria-pressed="false"
+            >
+              Study
+            </button>
+
+            <button
+              type="button"
+              class="category-button"
+              data-category="personal"
+              aria-pressed="false"
+            >
+              Personal
+            </button>
+
+            <button
+              type="button"
+              class="category-button"
+              data-category="shopping"
+              aria-pressed="false"
+            >
+              Shopping
+            </button>
+          </div>
+        </aside>
+
+        <section class="task-section" aria-label="Tasks">
+          <form id="task-form" class="task-form">
+            <label for="task-input" class="sr-only">New task</label>
+
+            <input
+              type="text"
+              id="task-input"
+              class="task-input"
+              placeholder="What needs to be done?"
+              autocomplete="off"
+            />
+
+            <label for="task-category" class="sr-only">Task category</label>
+
+            <select id="task-category" class="task-category">
+              <option value="" selected disabled>Select a category</option>
+              <option value="work">Work</option>
+              <option value="study">Study</option>
+              <option value="personal">Personal</option>
+              <option value="shopping">Shopping</option>
+            </select>
+
+            <button type="submit" id="add-task-button" class="add-task-button">
+              Add Task
+            </button>
+          </form>
+
+          <form id="edit-task-form" class="edit-form" hidden>
+            <label for="edit-task-input" class="sr-only">Edit task</label>
+
+            <input
+              type="text"
+              id="edit-task-input"
+              class="edit-input"
+              placeholder="Edit your task"
+              autocomplete="off"
+            />
+
+            <label for="edit-task-category" class="sr-only"
+              >Edit task category</label
+            >
+
+            <select id="edit-task-category" class="edit-category">
+              <option value="" disabled>Select a category</option>
+              <option value="work">Work</option>
+              <option value="study">Study</option>
+              <option value="personal">Personal</option>
+              <option value="shopping">Shopping</option>
+            </select>
+
+            <button
+              type="submit"
+              id="save-edit-button"
+              class="edit-save-button"
+            >
+              Save
+            </button>
+
+            <button
+              type="button"
+              id="cancel-edit-button"
+              class="edit-cancel-button"
+            >
+              Cancel
+            </button>
+          </form>
+
+          <ul id="task-list" class="task-list">
+            <!-- Tasks will be inserted here -->
+          </ul>
+
+          <p id="empty-state" class="empty-state" aria-live="polite">
+            No tasks yet.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

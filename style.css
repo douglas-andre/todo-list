@@ -1,0 +1,817 @@
+/* ==============================
+   Reset
+============================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  border: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ==============================
+   Variables
+============================== */
+
+:root {
+  --background: #111111;
+
+  --surface: #181818;
+  --surface-hover: #202020;
+
+  --border: #2a2a2a;
+  --border-focus: #5a5a5a;
+
+  --text-primary: #f5f5f5;
+  --text-secondary: #a0a0a0;
+  --text-muted: #858585;
+
+  --accent: #ffffff;
+  --accent-text: #111111;
+
+  --focus-ring: #ffffff;
+}
+
+/* ==============================
+   Base
+============================== */
+
+body {
+  min-height: 100vh;
+
+  padding: 1.5rem 1rem;
+
+  background-color: var(--background);
+  color: var(--text-primary);
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+/* ==============================
+   Focus (keyboard navigation)
+============================== */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ==============================
+   App
+============================== */
+
+.todo-app {
+  width: 100%;
+  max-width: 680px;
+
+  margin: 0 auto;
+}
+
+/* ==============================
+   Header
+============================== */
+
+.todo-header {
+  margin-bottom: 2rem;
+}
+
+.todo-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.todo-subtitle {
+  margin-top: 0.4rem;
+
+  color: var(--text-secondary);
+
+  font-size: 0.95rem;
+}
+
+/* ==============================
+   Statistics
+============================== */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 0.75rem;
+
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.25rem;
+
+  padding: 1rem;
+
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+
+  background-color: var(--surface);
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+
+  font-size: 0.75rem;
+}
+
+/* ==============================
+   Categories
+============================== */
+
+.categories {
+  margin-bottom: 2rem;
+}
+
+.categories-title {
+  margin-bottom: 0.75rem;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.category-list {
+  display: flex;
+
+  gap: 0.5rem;
+
+  overflow-x: auto;
+}
+
+.category-button {
+  flex-shrink: 0;
+
+  padding: 0.5rem 0.75rem;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  background-color: transparent;
+  color: var(--text-secondary);
+
+  cursor: pointer;
+
+  font-size: 0.8rem;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.category-button:hover,
+.category-button.active,
+.category-button[aria-pressed="true"] {
+  background-color: var(--surface);
+
+  color: var(--text-primary);
+}
+
+/* Inset ring so the outline is not clipped by the scroll container */
+.category-button:focus-visible {
+  outline-offset: -2px;
+}
+
+/* ==============================
+   Task Form
+============================== */
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+
+  align-items: stretch;
+
+  gap: 0.75rem;
+
+  margin-bottom: 1.5rem;
+}
+
+/* ==============================
+   Task Input
+============================== */
+
+.task-input {
+  width: 100%;
+  height: 3.5rem;
+
+  padding: 0 1rem;
+
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+
+  background-color: var(--surface);
+  color: var(--text-primary);
+
+  font-size: 0.9rem;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.task-input::placeholder {
+  color: var(--text-muted);
+}
+
+.task-input:focus {
+  border-color: var(--border-focus);
+
+  background-color: var(--surface-hover);
+}
+
+/* ==============================
+   Category Selects (add + edit)
+   Shared styles for both dropdowns
+============================== */
+
+.task-category,
+.edit-category {
+  width: 100%;
+  height: 3.5rem;
+
+  padding: 0 2rem 0 1rem;
+
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+
+  background-color: var(--surface);
+  color: var(--text-primary);
+
+  cursor: pointer;
+
+  font-size: 0.9rem;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23a0a0a0' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+  background-repeat: no-repeat;
+
+  background-position: right 1rem center;
+
+  background-size: 12px 8px;
+}
+
+.task-category:hover,
+.edit-category:hover {
+  background-color: var(--surface-hover);
+}
+
+.task-category:focus,
+.edit-category:focus {
+  border-color: var(--border-focus);
+
+  background-color: var(--surface-hover);
+}
+
+/* ==============================
+   Add Task Button
+============================== */
+
+.add-task-button {
+  width: 100%;
+  height: 3.5rem;
+
+  padding: 0 1.25rem;
+
+  border-radius: 0.5rem;
+
+  background-color: var(--accent);
+  color: var(--accent-text);
+
+  cursor: pointer;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.add-task-button:hover {
+  opacity: 0.9;
+}
+
+.add-task-button:active {
+  transform: scale(0.98);
+}
+
+/* ==============================
+   Edit Task Form
+   Mobile: input and select take a full row each,
+   Save / Cancel share the last row.
+============================== */
+
+.edit-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  gap: 0.75rem;
+
+  margin-bottom: 1.5rem;
+}
+
+/* Keeps the hidden attribute working despite display: flex */
+.task-form[hidden],
+.edit-form[hidden] {
+  display: none;
+}
+
+/* ==============================
+   Edit Task Input
+============================== */
+
+.edit-input {
+  flex: 1 1 100%;
+
+  min-width: 0;
+  height: 3.5rem;
+
+  padding: 0 1rem;
+
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+
+  background-color: var(--surface);
+  color: var(--text-primary);
+
+  font-size: 0.9rem;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.edit-input::placeholder {
+  color: var(--text-muted);
+}
+
+.edit-input:focus {
+  border-color: var(--border-focus);
+
+  background-color: var(--surface-hover);
+}
+
+/* ==============================
+   Edit Task Category
+   (visual styles come from the shared block above)
+============================== */
+
+.edit-category {
+  flex: 1 1 100%;
+
+  min-width: 0;
+}
+
+/* ==============================
+   Edit Save / Cancel Buttons
+============================== */
+
+.edit-save-button,
+.edit-cancel-button {
+  flex: 1 1 0;
+
+  height: 3.5rem;
+
+  padding: 0 1.25rem;
+
+  border-radius: 0.5rem;
+
+  cursor: pointer;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.edit-save-button {
+  background-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.edit-save-button:hover {
+  opacity: 0.9;
+}
+
+.edit-cancel-button {
+  border: 1px solid var(--border);
+
+  background-color: transparent;
+  color: var(--text-primary);
+}
+
+.edit-cancel-button:hover {
+  background-color: var(--surface-hover);
+}
+
+.edit-save-button:active,
+.edit-cancel-button:active {
+  transform: scale(0.98);
+}
+
+/* ==============================
+   Task List
+============================== */
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==============================
+   Task Item
+   Columns: description | category label | actions
+============================== */
+
+.task-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+
+  align-items: center;
+
+  min-height: 3.5rem;
+
+  gap: 0.75rem;
+
+  padding: 0.75rem 0.5rem;
+
+  border-bottom: 1px solid var(--border);
+}
+
+/* ==============================
+   Task Description
+============================== */
+
+.task-description {
+  min-width: 0;
+
+  color: var(--text-primary);
+
+  overflow-wrap: anywhere;
+
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* ==============================
+   Completed Task
+============================== */
+
+.task-item.completed .task-description {
+  text-decoration: line-through;
+
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--text-secondary);
+
+  color: var(--text-secondary);
+}
+
+/* ==============================
+   Task Category Label
+============================== */
+
+.task-category-label {
+  padding: 0.2rem 0.55rem;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  background-color: var(--surface);
+
+  color: var(--text-secondary);
+
+  font-size: 0.7rem;
+  font-weight: 500;
+
+  line-height: 1.2;
+
+  white-space: nowrap;
+}
+
+/* ==============================
+   Task Actions
+============================== */
+
+.task-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.25rem;
+}
+
+.task-action {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 2rem;
+  height: 2rem;
+
+  padding: 0;
+
+  border-radius: 0.4rem;
+
+  background-color: transparent;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.task-action svg {
+  width: 1.15rem;
+  height: 1.15rem;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 2;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.task-complete {
+  color: #4ade80;
+}
+
+.task-complete:hover {
+  background-color: rgba(74, 222, 128, 0.1);
+}
+
+.task-edit {
+  color: #a3a3a3;
+}
+
+.task-edit:hover {
+  background-color: var(--surface-hover);
+
+  color: var(--text-primary);
+}
+
+.task-remove {
+  color: #f87171;
+}
+
+.task-remove:hover {
+  background-color: rgba(248, 113, 113, 0.1);
+}
+
+.task-action:active {
+  transform: scale(0.9);
+}
+
+/* ==============================
+   Empty State
+============================== */
+
+.empty-state {
+  padding: 3rem 1rem;
+
+  color: var(--text-muted);
+
+  text-align: center;
+
+  font-size: 0.9rem;
+}
+
+/* ==============================
+   Accessibility
+============================== */
+
+.sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+
+  white-space: nowrap;
+
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==============================
+   Tablet
+============================== */
+
+@media (min-width: 580px) {
+  body {
+    padding: 2rem;
+  }
+
+  .task-form {
+    flex-direction: row;
+
+    align-items: stretch;
+  }
+
+  .task-input,
+  .task-category,
+  .add-task-button {
+    height: 3rem;
+  }
+
+  .task-input {
+    flex: 1;
+
+    min-width: 0;
+  }
+
+  .task-category {
+    width: 180px;
+
+    flex-shrink: 0;
+  }
+
+  .add-task-button {
+    width: auto;
+
+    flex-shrink: 0;
+  }
+
+  /* Symmetric side columns keep the category label centered in the item */
+  .task-item {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .task-actions {
+    justify-self: end;
+  }
+}
+
+/* ==============================
+   Desktop
+============================== */
+
+/* 820px: width where the sidebar (180px + 40px gap) and the add form
+(select 180px + button ~105px) still leave ~195px for the input. */
+
+@media (min-width: 820px) {
+  body {
+    padding: 4rem 3rem;
+  }
+
+  .todo-app {
+    max-width: 1100px;
+  }
+
+  .todo-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .todo-title {
+    font-size: 2.25rem;
+  }
+
+  .stats {
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .todo-layout {
+    display: grid;
+
+    grid-template-columns: 180px 1fr;
+
+    gap: 2.5rem;
+  }
+
+  .categories {
+    margin-bottom: 0;
+  }
+
+  .categories-title {
+    margin-bottom: 1rem;
+  }
+
+  .category-list {
+    flex-direction: column;
+
+    gap: 0.25rem;
+
+    overflow: visible;
+  }
+
+  .category-button {
+    width: 100%;
+
+    padding: 0.65rem 0.75rem;
+
+    border: none;
+    border-radius: 0.4rem;
+
+    text-align: left;
+  }
+
+  .task-form {
+    margin-bottom: 2rem;
+  }
+}
+
+/* ==============================
+  Edit Form - Tablet
+  Input is wider than the select (flex-grow 2 vs 1,
+  flex-basis 260px vs 160px). Wraps when space is tight.
+============================== */
+
+@media (min-width: 580px) {
+  .edit-input,
+  .edit-category,
+  .edit-save-button,
+  .edit-cancel-button {
+    height: 3rem;
+  }
+
+  .edit-input {
+    flex: 2 1 260px;
+  }
+
+  .edit-category {
+    flex: 1 1 160px;
+  }
+
+  .edit-save-button,
+  .edit-cancel-button {
+    flex: 0 0 auto;
+  }
+}
+
+/* ==============================
+  Edit Form - Desktop
+============================== */
+
+@media (min-width: 820px) {
+  .edit-form {
+    margin-bottom: 2rem;
+  }
+}
